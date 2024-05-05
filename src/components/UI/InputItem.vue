@@ -1,0 +1,13 @@
+<script setup></script>
+
+<template>
+  <input type="text" />
+</template>
+
+<style scoped>
+input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid;
+}
+</style>
