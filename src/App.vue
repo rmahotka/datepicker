@@ -2,6 +2,7 @@
 import WidgetsHeadData from "./components/WidgetsHeadData.vue";
 import InputItem from "./components/UI/InputItem.vue";
 import WeekItem from "./components/WeekItem.vue";
+import DayItem from "./components/DayItem.vue";
 import { ref } from "vue";
 
 const visible = ref(false);
@@ -20,6 +21,7 @@ const date = new Date();
     <div class="block" v-if="visible">
       <WidgetsHeadData :date="date" :location="location" />
       <WeekItem />
+      <DayItem :date="date" />
     </div>
   </div>
 </template>
