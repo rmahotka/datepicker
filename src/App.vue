@@ -1,20 +1,25 @@
 <script setup>
 import WidgetsHeadData from "./components/WidgetsHeadData.vue";
 import InputItem from "./components/UI/InputItem.vue";
+import WeekItem from "./components/WeekItem.vue";
 import { ref } from "vue";
 
 const visible = ref(false);
+const location = ref("ru");
 
 const useVisible = () => {
   visible.value = !visible.value;
 };
+
+const date = new Date();
 </script>
 
 <template>
   <div class="container">
     <InputItem @click="useVisible" />
     <div class="block" v-if="visible">
-      <WidgetsHeadData />
+      <WidgetsHeadData :date="date" :location="location" />
+      <WeekItem />
     </div>
   </div>
 </template>
