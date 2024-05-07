@@ -1,5 +1,8 @@
 <template>
-  <div>{{ d }}</div>
+  <div class="block">
+    <span>{{ d.month }}</span
+    ><span>{{ d.year }}</span>
+  </div>
 </template>
 
 <script setup>
@@ -17,14 +20,22 @@ const props = defineProps({
   },
 });
 
-const option = {
-  year: "numeric",
-  month: "long",
-};
-
 const d = computed(() => {
-  return new Date(props.date).toLocaleString(props.location, option);
+  let newDate = new Date(props.date);
+  let objDate = {
+    month: newDate.toLocaleString(props.location, { month: "long" }),
+    year: newDate.getFullYear(),
+  };
+  return objDate;
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.block {
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+</style>

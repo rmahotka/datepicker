@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from "vue";
 
 const props = defineProps({
   date: {
@@ -8,6 +8,11 @@ const props = defineProps({
     default: new Date(),
   },
 });
+
+const dayNowClass = ref("dayNow");
+const dayNow = new Date();
+
+console.log(dayNow.getDay());
 
 const getLastDayOfMonth = (year, month) => {
   let date = new Date(year, month + 1, 0);
@@ -22,8 +27,15 @@ const d = computed(() => {
 
 <template>
   <div class="number-block">
-    <div class="number-item" v-for="(item, index) in d" :key="index">
-      {{ item }}
+    <div
+      class="number-item"
+      :class="item === dayNow.getDate() ? dayNowClass : ''"
+      v-for="(item, index) in d"
+      :key="index"
+    >
+      <span>
+        {{ item }}
+      </span>
     </div>
   </div>
 </template>
@@ -41,13 +53,18 @@ const d = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 50%;
   width: 100%;
+  height: 22px;
   padding: 4px 0;
 }
 
 .number-item:hover {
   transition: 0.15s;
   background-color: #e9cfcf;
+}
+
+.dayNow {
+  background-color: #ececec;
 }
 </style>

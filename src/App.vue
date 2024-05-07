@@ -1,11 +1,11 @@
 <script setup>
-import WidgetsHeadData from '@/components/WidgetsHeadData.vue';
-import InputItem from '@/components/UI/InputItem.vue';
+import WidgetsHeadData from "@/components/WidgetsHeadData.vue";
+import InputItem from "@/components/UI/InputItem.vue";
 
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const visible = ref(false);
-const location = ref('ru');
+const location = ref("ru");
 
 const useVisible = () => {
   visible.value = !visible.value;
@@ -35,10 +35,10 @@ const date = new Date();
 
 .block {
   margin-top: 3px;
-  max-width: 200px;
+  max-width: 210px;
   width: 100%;
-  border: 1px solid;
+  border: 1px solid #acacac;
   border-radius: 8px;
-  padding: 5px;
+  padding: 10px;
 }
 </style>
