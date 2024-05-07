@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from "vue";
-import ButtonItem from "./UI/ButtonItem.vue";
-import MonthAndYear from "./MonthAndYear.vue";
+import { ref } from 'vue';
+import ButtonItem from './UI/ButtonItem.vue';
+import MonthAndYear from './MonthAndYear.vue';
+import WeekItem from '@/components/WeekItem.vue';
+import DayItem from '@/components/DayItem.vue';
 
 const props = defineProps({
   date: {
@@ -21,7 +23,7 @@ const monthPlus = (date) => {
 };
 
 const monthMinus = (date) => {
-  newDate.value = date.setMonth(date.getMonth() - 1);
+  newDate.value = parseInt(date.setMonth(date.getMonth() - 1));
 };
 </script>
 
@@ -30,6 +32,10 @@ const monthMinus = (date) => {
     <ButtonItem @click="monthMinus(props.date)">◀</ButtonItem>
     <MonthAndYear :date="newDate" :location="location" />
     <ButtonItem @click="monthPlus(props.date)">▶</ButtonItem>
+  </div>
+  <div>
+    <WeekItem />
+    <DayItem :date="newDate" />
   </div>
 </template>
 
