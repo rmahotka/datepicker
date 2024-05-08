@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed } from 'vue';
 
 const props = defineProps({
   date: {
@@ -9,10 +9,8 @@ const props = defineProps({
   },
 });
 
-const dayNowClass = ref("dayNow");
+const dayNowClass = ref('dayNow');
 const dayNow = new Date();
-
-console.log(dayNow.getDay());
 
 const getLastDayOfMonth = (year, month) => {
   let date = new Date(year, month + 1, 0);
