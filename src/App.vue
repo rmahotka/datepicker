@@ -1,11 +1,11 @@
 <script setup>
-import WidgetData from '@/components/WidgetData.vue';
-import InputItem from '@/components/UI/InputItem.vue';
+import WidgetData from "@/components/WidgetData.vue";
+import InputItem from "@/components/UI/InputItem.vue";
 
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const visible = ref(false);
-const location = ref('ru');
+const location = ref("ru");
 
 const useVisible = () => {
   visible.value = !visible.value;
@@ -18,6 +18,7 @@ const date = new Date();
   <div class="container">
     <InputItem @click="useVisible" />
     <div class="block" v-if="visible">
+      <!-- Переименовать -->
       <WidgetData :date="date" :location="location" />
     </div>
   </div>

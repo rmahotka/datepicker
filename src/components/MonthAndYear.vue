@@ -1,7 +1,7 @@
 <template>
   <div class="block">
-    <span>{{ d.month }}</span
-    ><span>{{ d.year }}</span>
+    <span>{{ newMonthAndYear.month }}</span>
+    <span>{{ newMonthAndYear.year }}</span>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ const props = defineProps({
   },
 });
 
-const d = computed(() => {
+const newMonthAndYear = computed(() => {
   let newDate = new Date(props.date);
   let objDate = {
     month: newDate.toLocaleString(props.location, { month: "long" }),

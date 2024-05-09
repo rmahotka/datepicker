@@ -1,11 +1,25 @@
 <script setup>
-const weekItem = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+const dateItems = [
+  "05/06/2024",
+  "05/07/2024",
+  "05/08/2024",
+  "05/09/2024",
+  "05/10/2024",
+  "05/11/2024",
+  "05/12/2024",
+];
+
+const getWeekName = (dateStr, locale = "ru", type = "short") => {
+  if (!dateStr) return;
+  const date = new Date(dateStr);
+  return date.toLocaleDateString(locale, { weekday: type });
+};
 </script>
 
 <template>
   <div class="week-block">
-    <div v-for="(item, i) of weekItem" :key="i">
-      <span>{{ item }}</span>
+    <div v-for="(date, index) of dateItems" :key="index">
+      <span>{{ getWeekName(date) }}</span>
     </div>
   </div>
 </template>
