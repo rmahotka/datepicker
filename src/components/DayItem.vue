@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue';
-import { getLastDayOfMonth } from '@/helpers';
+import { computed } from "vue";
+import { getLastDayOfMonth } from "@/helpers";
 
 const props = defineProps({
   date: {
@@ -48,16 +48,6 @@ const newMounthCountDay = computed(() => {
 
   return newMonth;
 });
-
-const shouldDarken = (day) => {
-  const firstDayOfMonth = newMounthCountDay.value[0];
-  const lastDayOfMonth =
-    newMounthCountDay.value[newMounthCountDay.value.length - 1];
-
-  return firstDayOfMonth.filter((item) =>
-    item > 7 ? 'opacity:0.4' : 'opacity:1'
-  );
-};
 </script>
 
 <template>
@@ -67,12 +57,7 @@ const shouldDarken = (day) => {
       :key="index"
       class="number-item"
     >
-      <span
-        v-for="(day, index) in week"
-        :key="index"
-        :style="shouldDarken()"
-        class="number-item__span"
-      >
+      <span v-for="(day, index) in week" :key="index" class="number-item__span">
         {{ day }}
       </span>
     </div>
