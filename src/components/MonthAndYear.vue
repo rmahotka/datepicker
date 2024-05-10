@@ -1,12 +1,5 @@
-<template>
-  <div class="block">
-    <span>{{ newMonthAndYear.month }}</span>
-    <span>{{ newMonthAndYear.year }}</span>
-  </div>
-</template>
-
 <script setup>
-import { computed } from "vue";
+import { computed } from 'vue';
 
 const props = defineProps({
   date: {
@@ -23,12 +16,19 @@ const props = defineProps({
 const newMonthAndYear = computed(() => {
   let newDate = new Date(props.date);
   let objDate = {
-    month: newDate.toLocaleString(props.location, { month: "long" }),
+    month: newDate.toLocaleString(props.location, { month: 'long' }),
     year: newDate.getFullYear(),
   };
   return objDate;
 });
 </script>
+
+<template>
+  <div class="block">
+    <span>{{ newMonthAndYear.month }}</span>
+    <span>{{ newMonthAndYear.year }}</span>
+  </div>
+</template>
 
 <style scoped>
 .block {

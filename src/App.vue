@@ -1,11 +1,11 @@
 <script setup>
-import WidgetData from "@/components/WidgetData.vue";
-import InputItem from "@/components/UI/InputItem.vue";
+import Calendar from '@/components/Calendar.vue';
+import InputItem from '@/components/UI/InputItem.vue';
 
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const visible = ref(false);
-const location = ref("ru");
+const location = ref('ru');
 
 const useVisible = () => {
   visible.value = !visible.value;
@@ -16,10 +16,10 @@ const date = new Date();
 
 <template>
   <div class="container">
+    <InputItem v-model="location" />
     <InputItem @click="useVisible" />
     <div class="block" v-if="visible">
-      <!-- Переименовать -->
-      <WidgetData :date="date" :location="location" />
+      <Calendar :date="date" :location="location" />
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ const date = new Date();
 
 .block {
   margin-top: 3px;
-  max-width: 210px;
+  max-width: 240px;
   width: 100%;
   border: 1px solid #acacac;
   border-radius: 8px;

@@ -1,11 +1,10 @@
 <script setup>
-import { ref } from "vue";
-import ButtonItem from "./UI/ButtonItem.vue";
-import MonthAndYear from "./MonthAndYear.vue";
-import WeekItem from "@/components/WeekItem.vue";
-import DayItem from "@/components/DayItem.vue";
-import arrowLeft from "@/assets/arrowLeft.vue";
-import arrowRigth from "@/assets/arrowRigth.vue";
+import { ref } from 'vue';
+import ButtonItem from './UI/ButtonItem.vue';
+import MonthAndYear from './MonthAndYear.vue';
+import WeekItem from '@/components/WeekItem.vue';
+import DayItem from '@/components/DayItem.vue';
+import Arrow from '@/assets/Arrow.vue';
 
 const props = defineProps({
   date: {
@@ -29,19 +28,18 @@ const monthMinus = (date) => {
 };
 </script>
 
-<!-- П\сделать одну стрелку со стилями -->
 <template>
   <div class="widgest__block">
     <ButtonItem @click="monthMinus(props.date)">
-      <arrowLeft />
+      <Arrow />
     </ButtonItem>
     <MonthAndYear :date="newDate" :location="location" />
     <ButtonItem @click="monthPlus(props.date)">
-      <arrowRigth />
+      <Arrow style="rotate: 180deg" />
     </ButtonItem>
   </div>
   <div>
-    <WeekItem />
+    <WeekItem :location="location" />
     <DayItem :date="newDate" />
   </div>
 </template>

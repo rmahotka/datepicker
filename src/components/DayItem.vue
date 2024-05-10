@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from 'vue';
+import { getLastDayOfMonth } from '@/helpers';
 
 const props = defineProps({
   date: {
@@ -9,31 +10,70 @@ const props = defineProps({
   },
 });
 
-const dayNowClass = ref("dayNow");
-const dayNow = new Date();
-
-//Перенести
-const getLastDayOfMonth = (year, month) => {
-  let date = new Date(year, month + 1, 0);
-  return date.getDate();
-};
-
-const d = computed(() => {
+const newMounthCountDay = computed(() => {
   let date = new Date(props.date);
-  return getLastDayOfMonth(date.getFullYear(), date.getMonth());
+  const countDays = getLastDayOfMonth(date.getFullYear(), date.getMonth());
+  const lastMonth = getLastDayOfMonth(date.getFullYear(), date.getMonth() - 1);
+
+  date.setDate(1);
+  const firstOfDayWeek = date.getDay();
+
+  let newMonth = [];
+  let weekDays = [];
+
+  if (firstOfDayWeek) {
+    for (let i = lastMonth; 0 < i; i--) {
+      if (weekDays.length + 1 < firstOfDayWeek) {
+        weekDays.unshift(i);
+      }
+    }
+  }
+
+  for (let i = 1; i <= countDays; i++) {
+    if (weekDays.length >= 7) {
+      newMonth.push(weekDays);
+      weekDays = [];
+    }
+    weekDays.push(i);
+
+    if (i === countDays) {
+      for (let i = 1; i < 7; i++) {
+        if (weekDays.length < 7) {
+          weekDays.push(i);
+        }
+      }
+      newMonth.push(weekDays);
+    }
+  }
+
+  return newMonth;
 });
+
+const shouldDarken = (day) => {
+  const firstDayOfMonth = newMounthCountDay.value[0];
+  const lastDayOfMonth =
+    newMounthCountDay.value[newMounthCountDay.value.length - 1];
+
+  return firstDayOfMonth.filter((item) =>
+    item > 7 ? 'opacity:0.4' : 'opacity:1'
+  );
+};
 </script>
 
 <template>
   <div class="number-block">
     <div
-      v-for="(item, index) in d"
+      v-for="(week, index) in newMounthCountDay"
       :key="index"
       class="number-item"
-      :class="item === dayNow.getDate() ? dayNowClass : ''"
     >
-      <span>
-        {{ item }}
+      <span
+        v-for="(day, index) in week"
+        :key="index"
+        :style="shouldDarken()"
+        class="number-item__span"
+      >
+        {{ day }}
       </span>
     </div>
   </div>
@@ -41,24 +81,29 @@ const d = computed(() => {
 
 <style scoped>
 .number-block {
-  display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(7, 1fr);
+  display: flex;
+  flex-direction: column;
 }
 
 .number-item {
-  grid-column: 1 span;
-  cursor: pointer;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.number-item__span {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
   width: 100%;
-  height: 22px;
+  height: 26px;
   padding: 4px 0;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.number-item:hover {
+.number-item__span:hover {
   transition: 0.15s;
   background-color: #e9cfcf;
 }
