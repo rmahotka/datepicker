@@ -1,12 +1,12 @@
 <script setup>
-import { computed } from "vue";
-import { getLastDayOfMonth } from "@/helpers";
+import { computed } from 'vue';
+import { getLastDayOfMonth } from '@/helpers';
 
 const props = defineProps({
   date: {
     type: Number,
     require: true,
-    default: new Date(),
+    default: new Date().getTime(),
   },
 });
 
@@ -24,7 +24,7 @@ const newMounthCountDay = computed(() => {
   if (firstOfDayWeek) {
     for (let i = lastMonth; 0 < i; i--) {
       if (weekDays.length + 1 < firstOfDayWeek) {
-        weekDays.unshift(i);
+        weekDays.push({ d: i, m: date.getMonth() - 1, y: date.getFullYear() });
       }
     }
   }
@@ -34,20 +34,29 @@ const newMounthCountDay = computed(() => {
       newMonth.push(weekDays);
       weekDays = [];
     }
-    weekDays.push(i);
+    weekDays.push({ d: i, m: date.getMonth(), y: date.getFullYear() });
 
     if (i === countDays) {
       for (let i = 1; i < 7; i++) {
         if (weekDays.length < 7) {
-          weekDays.push(i);
+          weekDays.push({
+            d: i,
+            m: date.getMonth() + 1,
+            y: date.getFullYear(),
+          });
         }
       }
       newMonth.push(weekDays);
     }
   }
-
   return newMonth;
 });
+
+const getDate = (day) => {
+  emit('getDate', day);
+};
+
+const emit = defineEmits(['getDate']);
 </script>
 
 <template>
@@ -57,8 +66,13 @@ const newMounthCountDay = computed(() => {
       :key="index"
       class="number-item"
     >
-      <span v-for="(day, index) in week" :key="index" class="number-item__span">
-        {{ day }}
+      <span
+        v-for="(day, index) in week"
+        :key="index"
+        @click="getDate(day)"
+        class="number-item__span"
+      >
+        {{ day.d }}
       </span>
     </div>
   </div>

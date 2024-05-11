@@ -9,14 +9,12 @@ import Arrow from '@/assets/Arrow.vue';
 const props = defineProps({
   date: {
     type: Number,
-    require: true,
   },
   location: {
     type: String,
-    require: true,
   },
 });
-
+const getDate = new Date(props.date);
 const newDate = ref();
 
 const monthPlus = (date) => {
@@ -26,21 +24,27 @@ const monthPlus = (date) => {
 const monthMinus = (date) => {
   newDate.value = parseInt(date.setMonth(date.getMonth() - 1));
 };
+
+const getDay = (day) => {
+  emit('getDay', day);
+};
+
+const emit = defineEmits(['getDay']);
 </script>
 
 <template>
   <div class="widgest__block">
-    <ButtonItem @click="monthMinus(props.date)">
+    <ButtonItem @click="monthMinus(getDate)">
       <Arrow />
     </ButtonItem>
-    <MonthAndYear :date="newDate" :location="location" />
-    <ButtonItem @click="monthPlus(props.date)">
+    <MonthAndYear :location="location" />
+    <ButtonItem @click="monthPlus(getDate)">
       <Arrow style="rotate: 180deg" />
     </ButtonItem>
   </div>
   <div>
-    <WeekItem :location="location" />
-    <DayItem :date="newDate" />
+    <WeekItem :location="props.location" />
+    <DayItem :date="newDate" @get-date="getDay" />
   </div>
 </template>
 

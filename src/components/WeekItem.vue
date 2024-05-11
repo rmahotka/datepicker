@@ -32,7 +32,7 @@ const dateItems = [
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   justify-items: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 7px;
 }
