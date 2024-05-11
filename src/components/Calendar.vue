@@ -9,9 +9,11 @@ import Arrow from '@/assets/Arrow.vue';
 const props = defineProps({
   date: {
     type: Number,
+    require: true,
   },
   location: {
     type: String,
+    require: true,
   },
 });
 const getDate = new Date(props.date);
