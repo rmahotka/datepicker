@@ -1,7 +1,11 @@
 <script setup>
-import { getWeekName } from '@/helpers';
+import { getWeekName } from "@/helpers";
 
 defineProps({
+  date: {
+    type: Number,
+    require: true,
+  },
   location: {
     type: String,
     require: true,
@@ -9,13 +13,13 @@ defineProps({
 });
 
 const dateItems = [
-  '05/06/2024',
-  '05/07/2024',
-  '05/08/2024',
-  '05/09/2024',
-  '05/10/2024',
-  '05/11/2024',
-  '05/12/2024',
+  "05/06/2024",
+  "05/07/2024",
+  "05/08/2024",
+  "05/09/2024",
+  "05/10/2024",
+  "05/11/2024",
+  "05/12/2024",
 ];
 </script>
 

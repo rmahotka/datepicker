@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue';
-import { getLastDayOfMonth } from '@/helpers';
+import { computed } from "vue";
+import { getLastDayOfMonth } from "@/helpers";
 
 const props = defineProps({
   date: {
@@ -52,11 +52,23 @@ const newMounthCountDay = computed(() => {
   return newMonth;
 });
 
-const getDate = (day) => {
-  emit('getDate', day);
+const todaysDay = (day) => {
+  let date = new Date();
+  let dayNow = date.getDate();
+  let monthNow = date.getMonth();
+  let yearNow = date.getFullYear();
+  if (dayNow === day.d && monthNow === day.m && yearNow === day.y) {
+    return true;
+  }
+
+  return false;
 };
 
-const emit = defineEmits(['getDate']);
+const getDate = (day) => {
+  emit("getDate", day);
+};
+
+const emit = defineEmits(["getDate"]);
 </script>
 
 <template>
@@ -71,6 +83,7 @@ const emit = defineEmits(['getDate']);
         :key="index"
         @click="getDate(day)"
         class="number-item__span"
+        :style="{ background: todaysDay(day) ? 'rgb(237 237 237)' : '' }"
       >
         {{ day.d }}
       </span>
@@ -109,5 +122,10 @@ const emit = defineEmits(['getDate']);
 
 .dayNow {
   background-color: #ececec;
+}
+
+.selected {
+  /* Стили для выбранного элемента */
+  background-color: yellow;
 }
 </style>

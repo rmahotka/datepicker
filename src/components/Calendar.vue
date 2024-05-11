@@ -1,10 +1,10 @@
 <script setup>
-import { ref } from 'vue';
-import ButtonItem from './UI/ButtonItem.vue';
-import MonthAndYear from './MonthAndYear.vue';
-import WeekItem from '@/components/WeekItem.vue';
-import DayItem from '@/components/DayItem.vue';
-import Arrow from '@/assets/Arrow.vue';
+import { ref } from "vue";
+import ButtonItem from "./UI/ButtonItem.vue";
+import MonthAndYear from "./MonthAndYear.vue";
+import WeekItem from "@/components/WeekItem.vue";
+import DayItem from "@/components/DayItem.vue";
+import Arrow from "@/assets/Arrow.vue";
 
 const props = defineProps({
   date: {
@@ -16,7 +16,7 @@ const props = defineProps({
     require: true,
   },
 });
-const getDate = new Date(props.date);
+
 const newDate = ref();
 
 const monthPlus = (date) => {
@@ -28,24 +28,24 @@ const monthMinus = (date) => {
 };
 
 const getDay = (day) => {
-  emit('getDay', day);
+  emit("getDay", day);
 };
 
-const emit = defineEmits(['getDay']);
+const emit = defineEmits(["getDay"]);
 </script>
 
 <template>
   <div class="widgest__block">
-    <ButtonItem @click="monthMinus(getDate)">
+    <ButtonItem @click="monthMinus(props.date)">
       <Arrow />
     </ButtonItem>
-    <MonthAndYear :location="location" />
-    <ButtonItem @click="monthPlus(getDate)">
+    <MonthAndYear :location="location" :date="newDate" />
+    <ButtonItem @click="monthPlus(props.date)">
       <Arrow style="rotate: 180deg" />
     </ButtonItem>
   </div>
   <div>
-    <WeekItem :location="props.location" />
+    <WeekItem :date="newDate" :location="props.location" />
     <DayItem :date="newDate" @get-date="getDay" />
   </div>
 </template>
