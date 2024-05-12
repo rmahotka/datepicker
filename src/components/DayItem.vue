@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { getLastDayOfMonth } from "@/helpers";
 
 const props = defineProps({
@@ -83,7 +83,9 @@ const emit = defineEmits(["getDate"]);
         :key="index"
         @click="getDate(day)"
         class="number-item__span"
-        :style="{ background: todaysDay(day) ? 'rgb(237 237 237)' : '' }"
+        :style="{
+          background: todaysDay(day) ? 'rgb(237 237 237)' : '',
+        }"
       >
         {{ day.d }}
       </span>
