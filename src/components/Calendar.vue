@@ -15,9 +15,12 @@ const props = defineProps({
     type: String,
     require: true,
   },
+  isSelected: {
+    type: Boolean,
+  },
 });
 
-const newDate = ref();
+const newDate = ref(props.date);
 
 const monthPlus = (date) => {
   newDate.value = parseInt(date.setMonth(date.getMonth() + 1));
@@ -46,7 +49,7 @@ const emit = defineEmits(["getDay"]);
   </div>
   <div>
     <WeekItem :date="newDate" :location="props.location" />
-    <DayItem :date="newDate" @get-date="getDay" />
+    <DayItem :date="newDate" @get-date="getDay" :isSelected="isSelected" />
   </div>
 </template>
 

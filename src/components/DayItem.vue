@@ -8,6 +8,9 @@ const props = defineProps({
     require: true,
     default: new Date().getTime(),
   },
+  isSelected: {
+    type: Boolean,
+  },
 });
 
 const newMounthCountDay = computed(() => {
@@ -85,6 +88,7 @@ const emit = defineEmits(["getDate"]);
         class="number-item__span"
         :style="{
           background: todaysDay(day) ? 'rgb(237 237 237)' : '',
+          border: props.isSelected(day) ? '1px solid' : '',
         }"
       >
         {{ day.d }}
@@ -124,10 +128,5 @@ const emit = defineEmits(["getDate"]);
 
 .dayNow {
   background-color: #ececec;
-}
-
-.selected {
-  /* Стили для выбранного элемента */
-  background-color: yellow;
 }
 </style>

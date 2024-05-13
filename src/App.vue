@@ -2,11 +2,12 @@
 import Calendar from "@/components/Calendar.vue";
 import InputItem from "@/components/UI/InputItem.vue";
 
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const visible = ref(false);
 const inputDate = ref("");
 const location = ref(window.clientInformation.language);
+const objDate = ref({});
 
 const date = new Date();
 
@@ -19,8 +20,23 @@ const dayClick = (day) => {
     day.m + 1 < 10 ? "0" + Number(day.m + 1) : day.m + 1
   }-${day.y}`;
   inputDate.value = selectedDate;
+  objDate.value = day;
   visible.value = false;
 };
+
+const isSelected = computed(() => {
+  return (day) => {
+    if (
+      objDate.value &&
+      objDate.value.d === day.d &&
+      objDate.value.m === day.m &&
+      objDate.value.y === day.y
+    ) {
+      return true;
+    }
+    return false;
+  };
+});
 </script>
 
 <template>
@@ -30,7 +46,12 @@ const dayClick = (day) => {
       <InputItem @click="useVisible" v-model="inputDate" />
       <Transition>
         <div class="block-calendar" v-if="visible">
-          <Calendar :date="date" :location="location" @get-day="dayClick" />
+          <Calendar
+            :date="date"
+            :location="location"
+            :isSelected="isSelected"
+            @get-day="dayClick"
+          />
         </div>
       </Transition>
     </div>
