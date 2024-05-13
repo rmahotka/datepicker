@@ -41,7 +41,6 @@ const isSelected = computed(() => {
 
 <template>
   <div class="container">
-    <InputItem v-model="location" />
     <div class="block">
       <InputItem @click="useVisible" v-model="inputDate" />
       <Transition>
